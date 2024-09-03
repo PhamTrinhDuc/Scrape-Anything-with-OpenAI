@@ -22,6 +22,7 @@ def scape_website(website):
 def extract_body_content(html_content):
     soup = BeautifulSoup(html_content,  "html.parser")
     body_content = soup.body
+    print(body_content)
 
     if body_content:
         return str(body_content)
@@ -45,3 +46,14 @@ def split_dom_content(dom_content, max_length=6000):
         dom_content[i:i + max_length] for i in range(0, len(dom_content), max_length)
         ]
 
+if __name__ == "__main__":
+    url = "https://www.google.com"
+    html = scape_website(website=url)
+    body_content = extract_body_content(html)
+    print(body_content)
+    print("=" * 100)
+    cleaned_content = clean_body_content(body_content)
+    print(cleaned_content)
+    print("=" * 100)
+    dom_content = split_dom_content(cleaned_content)
+    print(dom_content)

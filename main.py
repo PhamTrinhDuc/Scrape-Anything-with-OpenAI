@@ -19,7 +19,7 @@ if st.button("Scape Site"):
     st.session_state.dom_content = cleaned_content
 
     with st.expander("View DOM Content"):
-        st.text_area("DOM content", cleaned_content, height=300)
+        st.text_area("DOM content", cleaned_content, height=100)
 
 
 
