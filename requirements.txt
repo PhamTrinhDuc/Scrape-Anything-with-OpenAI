@@ -1,0 +1,8 @@
+streamlit 
+langchain
+lanchain-openai
+selenium
+beautifulsoup4
+lxml
+html5lib
+python-dotenvs
