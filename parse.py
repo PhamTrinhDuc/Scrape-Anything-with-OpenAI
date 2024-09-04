@@ -5,6 +5,10 @@ import dotenv
 
 dotenv.load_dotenv()
 
+os.environ['LANGCHAIN_TRACING_V2'] = 'true'
+os.environ['LANGCHAIN_ENDPOINT'] = 'https://api.smith.langchain.com'
+os.environ['LANGCHAIN_API_KEY'] = os.getenv("LANGCHAIN_API_KEY")
+
 template = (
     "You are tasked with extracting specific information from the following text content: {dom_content}. "
     "Please follow these instructions carefully: \n\n"
@@ -27,6 +31,9 @@ def parse_with_openai(dom_chunks, parse_desc):
     parsed_output = []
 
     for i, chunk in enumerate(dom_chunks):
+        # print(chunk)
+        # print(parse_desc)
+        # break
         response = chain.invoke(
             {"dom_content": chunk,
              "parse_description": parse_desc}
@@ -35,4 +42,4 @@ def parse_with_openai(dom_chunks, parse_desc):
         print(f"Parsed batch: {i} of {len(dom_chunks)}")
         parsed_output.append(response)
 
-    return "\n".join(parsed_output)
+    return "\n\n".join(parsed_output)

@@ -1,6 +1,6 @@
 import selenium.webdriver as webdriver
-from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
+from parse import parse_with_openai
 
 import time
 
@@ -13,7 +13,7 @@ def scape_website(website):
         driver.get(website)
         print("Page loaded...")
         html = driver.page_source
-        time.sleep(10)
+        time.sleep(3)
 
         return html
     finally:
@@ -22,7 +22,6 @@ def scape_website(website):
 def extract_body_content(html_content):
     soup = BeautifulSoup(html_content,  "html.parser")
     body_content = soup.body
-    print(body_content)
 
     if body_content:
         return str(body_content)
@@ -50,10 +49,12 @@ if __name__ == "__main__":
     url = "https://www.google.com"
     html = scape_website(website=url)
     body_content = extract_body_content(html)
-    print(body_content)
-    print("=" * 100)
+    # print(body_content)
+    # print("=" * 100)
     cleaned_content = clean_body_content(body_content)
-    print(cleaned_content)
-    print("=" * 100)
+    # print(cleaned_content)
+    # print("=" * 100)
     dom_content = split_dom_content(cleaned_content)
     print(dom_content)
+
+    # parse_with_openai(dom_content, "Gmail")
